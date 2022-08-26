@@ -21,7 +21,7 @@ RUN /opt/venv/bin/pip install --no-cache-dir -r /tmp/requirements.txt \
 
 WORKDIR /app
 COPY skeleglennsaysSite .
-COPY entrypoint.sh entrypoint.sh
+COPY scripts .
 
 RUN chmod +x entrypoint.sh
 

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skeleglennsays-deployment
+  labels:
+    app: skeleglennsays-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: skeleglennsays-deployment
+  template:
+    metadata:
+      labels:
+        app: skeleglennsays-deployment
+    spec:
+      containers:
+      - name: skeleglennsays
+        image: ghcr.io/trjahnke/skeleglennsays:main
+        imagePullPolicy: Always
+        envFrom:
+          - secretRef:
+              name: django-skeleglenn-prod-env
+        env:
+          - name: PORT
+            value: "8002"
+        ports:
+        - containerPort: 8002  
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: skeleglennsays-service
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8002
+  selector:
+    app: skeleglennsays-deployment
