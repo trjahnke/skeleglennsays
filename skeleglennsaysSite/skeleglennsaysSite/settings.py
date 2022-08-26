@@ -12,8 +12,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = str(os.environ.get('DEBUG')) == "1"
-if ENV_ALLOWED_HOST := os.environ.get("ALLOWED_HOST"):
-    ALLOWED_HOSTS = [ENV_ALLOWED_HOST]
+if ENV_ALLOWED_HOSTS := os.environ.get("ENV_ALLOWED_HOSTS"):
+    ALLOWED_HOSTS = [ENV_ALLOWED_HOSTS]
 else:
     ALLOWED_HOSTS = []
 
