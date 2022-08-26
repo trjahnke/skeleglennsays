@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from socket import gethostname, gethostbyname
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,10 +13,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = str(os.environ.get('DEBUG')) == "1"
-if ENV_ALLOWED_HOSTS := os.environ.get("ENV_ALLOWED_HOSTS"):
-    ALLOWED_HOSTS = [ENV_ALLOWED_HOSTS]
-else:
-    ALLOWED_HOSTS = []
+# if ENV_ALLOWED_HOSTS := os.environ.get("ENV_ALLOWED_HOSTS"):
+#     ALLOWED_HOSTS = [ENV_ALLOWED_HOSTS]
+# else:
+#     ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [gethostname(), gethostbyname(gethostname()), ]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
